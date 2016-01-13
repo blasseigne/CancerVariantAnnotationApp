@@ -2,22 +2,44 @@
 # This is the server logic for a Shiny web application.
 # You can find out more about building applications with Shiny here:
 #
-# http://shiny.rstudio.com
-#
-
 library(shiny)
 
 shinyServer(function(input, output) {
-
-  output$distPlot <- renderPlot({
-
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'green', border = 'white')
-
+  output$contents <- renderTable({
+    
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file1
+    
+    if (is.null(inFile))
+      return(NULL)
+    
+    read.csv(inFile$datapath, header=input$header, sep=input$sep, 
+             quote=input$quote)
   })
-
+  
+  #download data module
+  datasetInput <- reactive({
+    switch(input$dataset,
+           "rock" = rock,
+           "pressure" = pressure,
+           "cars" = cars)
+  })
+  
+  output$downloadData <- downloadHandler(
+    filename = function() { 
+      paste(input$dataset, '.csv', sep='') 
+    },
+    content = function(file) {
+      write.csv(datasetInput(), file)
+    }
+  )
+  
+  #action button
+  output$value<-renderPrint({input$action})
+  
 })
