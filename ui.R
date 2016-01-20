@@ -44,6 +44,8 @@ shinyUI(fluidPage(
                           selected="Unique Variants Only"
                         ),
               tags$hr(),
+              #message handler for popup
+              #tags$head(tags$script(src = "message-handler.js")),
               actionButton("submitButton", "Execute Analysis")
             ),
            p("Developed and Maintained by:"),
