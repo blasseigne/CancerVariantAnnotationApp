@@ -15,7 +15,7 @@ if(!exists("Annotate", mode="function")) source("Variant_Annotation_Script.R")
 exampleInputFile<-fread("Example_InputVCFwithDupes.txt", stringsAsFactors = FALSE, sep="\t")
 
 
-shinyServer(function(input, output, session) {
+shinyServer(function(input, output) {
   
 #read in data from user
   filedata <- reactive({
@@ -51,12 +51,6 @@ shinyServer(function(input, output, session) {
   
 #show user if all variants or unique variants selected 
   output$options<-renderText({paste("Annotate only unique variants?", print(variantInput()))})
-
-# #add pop up message while annotating
-#   observeEvent(input$submitButton, {
-#     session$sendCustomMessage(type = 'testmessage',
-#                               message = 'Your analysis is executing')
-#   })
   
 #annotate user file
   zoutput<-eventReactive(input$submitButton, {
