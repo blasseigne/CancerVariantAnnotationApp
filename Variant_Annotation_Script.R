@@ -8,7 +8,7 @@
 #Output:A list with four items including number of variants matched, 
 #number of variants missing, annotated variant table, and missing variant table
 
-Annotate<-function(InputVCF, AnnotationCache, UniqueVariantsOnly=TRUE){
+Annotate<-function(InputVCF, AnnotationCache, UniqueVariantsOnly=TRUE){  #UVO=TRUE
   #Error check if input has unexpected number of files
   if(ncol(InputVCF)<5){
     stop("Input VCF file has an unexpected number of columns")
@@ -71,10 +71,4 @@ Annotate<-function(InputVCF, AnnotationCache, UniqueVariantsOnly=TRUE){
     stop("Unable to match any variants")
   }
 }
-
-
-z<-Annotate(InputVCF, AnnotationCache)
-z<-Annotate(InputVCF, AnnotationCache, UniqueVariantsOnly = FALSE)
-
-write.table(InputVCF, "~/Desktop/CADD_TCGA/Example_InputVCF.txt", sep="\t", row.names=F, col.names=F)
 

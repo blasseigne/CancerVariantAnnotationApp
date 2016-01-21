@@ -41,8 +41,7 @@ shinyUI(fluidPage(
               selectInput("uniqueAll", 
                           "Would you like to annotate all variants or only unique variants in the file?", 
                           choices = c("All Variants", "Unique Variants Only"),
-                          selected="Unique Variants Only"
-                        ),
+                          selected="Unique Variants Only"),
               tags$hr(),
               #message handler for popup
               #tags$head(tags$script(src = "message-handler.js")),
@@ -52,7 +51,7 @@ shinyUI(fluidPage(
            a("Rick Myers' and", href="http://research.hudsonalpha.org/Myers/"),
            a("Sara Cooper's Labs", href="http://research.hudsonalpha.org/CooperS/"),
            br(),
-           p("Contact:  Brittany Lasseigne, blasseigne@hudsonalpha.org"),
+           p("Contact: Brittany Lasseigne (blasseigne@hudsonalpha.org) or Ryne Ramaker (rramaker@hudsonalpha.org)"),
            a("HudsonAlpha Institute for Biotechnology", href="http://hudsonalpha.org", align="center"),
            img(src = "hudson-logo.png", height=50, width=200, align="center")
           ),
@@ -95,7 +94,7 @@ shinyUI(fluidPage(
               h4("Download Center", align="center"),
               p("This is where you download annotated and nonannotated variants"),
               selectInput("dataOut", "Select file to download:", 
-                          choices = c("Example Input Data", "Annotated Variants", "Unannotated Variants")),
+                          choices = c("Example_Input_Data", "Annotated_Variants", "Unannotated_Variants")),
               downloadButton('downloadData', 'Download')
             ), #end of wellPanel
            #info about mutation cache

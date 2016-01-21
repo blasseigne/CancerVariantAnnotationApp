@@ -2,6 +2,6 @@ name: CancerVariantAnnotationApp
 account: blasseigne
 server: shinyapps.io
 appId: 77751
-bundleId: 353146
+bundleId: 354001
 url: https://blasseigne.shinyapps.io/CancerVariantAnnotationApp/
-when: 1453259747.01308
+when: 1453348287.11406

@@ -10,7 +10,8 @@ library(data.table)
 #mutation cache v1.0
 load("AnnotationCache2.RData")
 #load variant annotation function
-if(!exists("Annotate", mode="function")) source("Variant_Annotation_Script.R")
+#if(!exists("Annotate", mode="function")) 
+source("Variant_Annotation_Script.R")
 #load example data for user
 exampleInputFile<-fread("Example_InputVCFwithDupes.txt", stringsAsFactors = FALSE, sep="\t")
 
@@ -54,8 +55,9 @@ shinyServer(function(input, output) {
   
 #annotate user file
   zoutput<-eventReactive(input$submitButton, {
-    Annotate(filedata(), AnnotationCache, variantInput())
+    Annotate(InputVCF=filedata(), AnnotationCache=AnnotationCache, UniqueVariantsOnly=variantInput())
   })
+  
   
 #show user total number of variants annotated/not annotated
   output$annotatedVariants<-renderText({
@@ -69,17 +71,17 @@ shinyServer(function(input, output) {
 #downloading annotated, unannotated, or example data
    output$downloadData <- downloadHandler(
      filename = function() { 
-       paste(input$dataOut, '.txt', sep='\t') },
+       paste(input$dataOut, '.txt', sep='') },
      content = function(file) {
-       write.table(datasetOutput(), file, quote=FALSE)
+      write.table(datasetOutput(), file, quote=FALSE)
      })
   
 #download data module
    datasetOutput <- reactive({
      switch(input$dataOut,
-            "Annotated Variants" = zoutput()$Found_Annotations,
-            "Unannotated Variants" = zoutput()$Missing_Annotations,
-            "Example Input Data" = exampleInputFile)
+            "Annotated_Variants" = zoutput()$Found_Annotations,
+            "Unannotated_Variants" = zoutput()$Missing_Annotations,
+            "Example_Input_Data" = exampleInputFile)
    })
   
   })
